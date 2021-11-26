@@ -19,8 +19,8 @@ test:
 
 start:
 	./new_day.py $(day)
-	git add src/main/java/day$(day)/Day$(day).java
-	git add src/test/java/day$(day)/Day$(day)Tests.java
+	git add src/main/java/aoc2021/day$(day)/Day$(day).java
+	git add src/test/java/aoc2021/day$(day)/Day$(day)Tests.java
 	git commit -m "started day $(day)"
 
 .PHONY: build input
