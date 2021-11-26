@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day{n}Tests {{
 
     @Test
-    @DisplayName("something does something")
+    @DisplayName("day {n} something does something")
     @Disabled
     void something() {{
         assertEquals(true, false);
