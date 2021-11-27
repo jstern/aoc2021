@@ -14,4 +14,4 @@ Doing stuff:
 * `make input [year=Y] day=D` [fetches, saves and] prints the puzzle input for the specified day
 * `make start day=D` generates and commits initial boilerplate for the specified day
 * `make test` runs the tests
-* `make day=D part=P` prints the solution for the specified day and part
+* `make [run] day=D part=P` prints the solution for the specified day and part
