@@ -2,11 +2,11 @@ year ?= 2021
 JAR := $(CURDIR)/build/libs/aoc2021-1.0.jar
 
 run: $(JAR)
-	java -cp $(JAR) aoc2021.Main $(day) $(part)
+	java --enable-preview -cp $(JAR) aoc2021.Main $(day) $(part)
 
 input: $(JAR)
 	mkdir -p $(CURDIR)/input/$(year)
-	java -cp $(JAR) aoc2021.PuzzleInput $(year) $(day)
+	java --enable-preview -cp $(JAR) aoc2021.PuzzleInput $(year) $(day)
 
 clean:
 	./gradlew clean
