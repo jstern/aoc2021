@@ -2,7 +2,7 @@
 
 Solutions to [advent of code 2021](https://adventofcode.com/2021/).
 
-![build status](https://github.com/jstern/aoc-2021/actions/workflows/build/badge.svg)
+![build status](https://github.com/jstern/aoc2021/workflows/build/badge.svg)
 
 Assumptions:
 
