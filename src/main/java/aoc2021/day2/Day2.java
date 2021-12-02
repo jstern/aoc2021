@@ -1,6 +1,8 @@
 package aoc2021.day2;
 
-public final class Day2 {
+import aoc2021.Solution;
+
+public final class Day2 implements Solution {
     public final Object part1(String input) {
         return "";
     }

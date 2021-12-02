@@ -4,7 +4,7 @@ import aoc2021.Solution;
 
 import java.util.stream.Collectors;
 
-public final class Day0 extends Solution {
+public final class Day0 implements Solution {
 
     /**
      * Santa needs us to remove the newlines to save X\nmas!

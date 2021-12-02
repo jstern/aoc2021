@@ -2,10 +2,10 @@ package aoc2021;
 
 import java.lang.reflect.Method;
 
-public abstract class Solution {
+public interface Solution {
 
-    public abstract Object part1(String input);
-    public abstract Object part2(String input);
+    default Object part1(String input) { return ""; }
+    default Object part2(String input) { return ""; }
 
     public static void run(String day, String part) throws Exception {
         // Assume puzzle inputs are always reasonably sized and we can start with
@@ -49,7 +49,7 @@ public abstract class Solution {
         throw new IllegalArgumentException("No method matching part%s in %s".formatted(part, this.getClass().getName()));
     }
 
-    static final long bytesToMB(long bytes) {
+    static long bytesToMB(long bytes) {
         return bytes / (1024L * 1024L);
     }
 }

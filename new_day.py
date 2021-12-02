@@ -5,7 +5,9 @@ import sys
 
 src = """package aoc2021.day{n};
 
-public final class Day{n} {{
+import aoc2021.Solution;
+
+public final class Day{n} implements Solution {{
     public final Object part1(String input) {{
         return "";
     }}
