@@ -17,7 +17,7 @@ build $(JAR):
 test:
 	./gradlew --rerun-tasks test
 
-start:
+start: input
 	./new_day.py $(day)
 	git add src/main/java/aoc2021/day$(day)/Day$(day).java
 	git add src/test/java/aoc2021/day$(day)/Day$(day)Tests.java
