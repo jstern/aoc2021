@@ -49,7 +49,6 @@ public class BingoSession {
             boardsWithNumber.computeIfAbsent(num, k -> new HashSet<>()).add(boardNum);
         }
         boardsInPlay.addAll(IntStream.rangeClosed(0, boardNum).boxed().collect(Collectors.toList()));
-        System.out.println(boardsInPlay);
 
         for (Integer number : numbers) {
             System.out.println("The next number is... " + number);
@@ -74,9 +73,9 @@ public class BingoSession {
                     }
                 }
             }
-            for (BingoBoard b : boards) {
-                System.out.println(b);
-            }
+            //for (BingoBoard b : boards) {
+            //    System.out.println(b);
+            //}
         }
 
         throw new IllegalStateException("Nobody won!");
