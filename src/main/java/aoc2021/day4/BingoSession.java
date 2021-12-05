@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class BingoSession {
 
-    enum Strategy {WIN, LET_THE_SQUID_WIN};
+    enum Strategy {WIN, LET_THE_SQUID_WIN}
 
     static int findAndScoreWinner(List<String> input) {
         return findAndScoreWinner(input, Strategy.WIN);
@@ -17,7 +17,6 @@ public class BingoSession {
         BingoBoard board = null;
         List<Integer> numbers = new ArrayList<>();
         Map<Integer,Set<Integer>> boardsWithNumber = new HashMap<>();
-        Set<Integer> boardsInPlay = new HashSet<>();
         int boardNum = 0;
 
         for (String line : input) {
@@ -48,7 +47,7 @@ public class BingoSession {
         for (int num : board.allNumbers()) {
             boardsWithNumber.computeIfAbsent(num, k -> new HashSet<>()).add(boardNum);
         }
-        boardsInPlay.addAll(IntStream.rangeClosed(0, boardNum).boxed().collect(Collectors.toList()));
+        Set<Integer> boardsInPlay = IntStream.rangeClosed(0, boardNum).boxed().collect(Collectors.toSet());
 
         for (Integer number : numbers) {
             System.out.println("The next number is... " + number);
@@ -104,8 +103,6 @@ public class BingoSession {
 
         void play(int number) throws Bingo {
             Integer loc = locations.get(number);
-            assert values.get(loc) == number;
-            if (null == loc) { return; }
             covered.add(loc);
             checkBingo(loc);
         }
