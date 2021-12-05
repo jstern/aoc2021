@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class BingoSession {
 
-    enum Strategy {WIN, LOSE};
+    enum Strategy {WIN, LET_THE_SQUID_WIN};
 
     static int findAndScoreWinner(List<String> input) {
         return findAndScoreWinner(input, Strategy.WIN);

@@ -10,6 +10,6 @@ public final class Day4 implements Solution {
     }
 
     public final Object part2(String input) {
-        return BingoSession.findAndScoreWinner(input.lines().collect(Collectors.toList()), BingoSession.Strategy.LOSE);
+        return BingoSession.findAndScoreWinner(input.lines().collect(Collectors.toList()), BingoSession.Strategy.LET_THE_SQUID_WIN);
     }
 }

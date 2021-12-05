@@ -50,7 +50,7 @@ public class Day4Tests {
     @Test
     @DisplayName("day 4 part 2 example")
     void partTwoExample() {
-        int actual = BingoSession.findAndScoreWinner(INPUT.lines().collect(Collectors.toList()), BingoSession.Strategy.LOSE);
+        int actual = BingoSession.findAndScoreWinner(INPUT.lines().collect(Collectors.toList()), BingoSession.Strategy.LET_THE_SQUID_WIN);
         assertEquals(1924, actual);
     }
 
