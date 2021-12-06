@@ -27,9 +27,9 @@ public interface Solution {
         long freeFinal = bytesToMB(Runtime.getRuntime().freeMemory());
         long totalFinal = bytesToMB(Runtime.getRuntime().totalMemory());
 
-        System.out.printf("Completed in %d ms%n", elapsed);
-        System.out.printf("Initial memory: %dMB total, %dMB free%n", totalInitial, freeInitial);
-        System.out.printf("Final memory: %dMB total, %dMB free%n", totalFinal, freeFinal);
+        System.out.printf("Completed in %d ms using %d MB%n", elapsed, freeInitial - freeFinal);
+        //System.out.printf("Initial memory: %dMB total, %dMB free%n", totalInitial, freeInitial);
+        //System.out.printf("Final memory: %dMB total, %dMB free%n", totalFinal, freeFinal);
 
         System.out.println("Result:");
         System.out.println(result);
