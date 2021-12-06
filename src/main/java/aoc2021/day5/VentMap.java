@@ -1,6 +1,7 @@
 package aoc2021.day5;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VentMap {
@@ -17,14 +18,7 @@ public class VentMap {
             if (includeDiagonal || line.horizontal() || line.vertical()) addVentLine(line);
         });
 
-        if (System.getenv("DEBUG") == "1") {
-            for (int y = 0; y < max; y++) {
-                for (int x = 0; x < max; x++) {
-                    System.out.print(grid[y][x] + " ");
-                }
-                System.out.print("\n");
-            }
-        }
+        if (System.getenv("DEBUG") == "1") System.out.println(Arrays.toString(grid));
     }
 
     static VentLine read(String desc) {
