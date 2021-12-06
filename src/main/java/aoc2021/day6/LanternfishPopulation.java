@@ -8,9 +8,9 @@ public class LanternfishPopulation {
 
     public LanternfishPopulation(String input) {
         var fish = Arrays.stream(input.split(",")).map(String::strip).collect(Collectors.toList());
-        for (int i = 0; i < fish.size(); i++) {
-           int cohort = Integer.parseInt(fish.get(i));
-           cohorts[cohort]++;
+        for (String s : fish) {
+            int cohort = Integer.parseInt(s);
+            cohorts[cohort]++;
         }
     }
 
@@ -45,7 +45,7 @@ public class LanternfishPopulation {
 
     public void show() {
         for (int i = 0; i < cohorts.length; i++) {
-            System.out.print("%d:%d ".formatted(i, cohorts[i]));
+            System.out.printf("%d:%d ", i, cohorts[i]);
         }
         System.out.println("\nTotal Population: " + size());
     }
