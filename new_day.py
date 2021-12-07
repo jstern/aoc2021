@@ -28,12 +28,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day{n}Tests {{
 
+    static String INPUT = "";
+
     @Test
-    @DisplayName("day {n} something does something")
+    @DisplayName("day {n} part 1 example")
     @Disabled
-    void something() {{
+    void day{n}part1() {{
         assertEquals(true, false);
     }}
+
+    @Test
+    @DisplayName("day {n} part 2 example")
+    @Disabled
+    void day{n}part2() {{
+        assertEquals(true, false);
+    }}
+
 }}
 """
 
