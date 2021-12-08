@@ -44,8 +44,10 @@ public class Crabs {
     }
 
     public long crabwalk() {
-        long target = Math.round(Math.floor(crabStats.getAverage()));
-        System.out.println("Crabs aligning at " + target);
-        return assortedCrabs.stream().mapToLong(v -> Math.abs(target - v) * (Math.abs(target - v) + 1) / 2).sum();
+        long target1 = Math.round(Math.floor(crabStats.getAverage()));
+        long target2 = Math.round(crabStats.getAverage()); // yuck
+        var t1result =  assortedCrabs.stream().mapToLong(v -> Math.abs(target1 - v) * (Math.abs(target1 - v) + 1) / 2).sum();
+        var t2result =  assortedCrabs.stream().mapToLong(v -> Math.abs(target2 - v) * (Math.abs(target2 - v) + 1) / 2).sum();
+        return Math.min(t1result, t2result);
     }
 }
