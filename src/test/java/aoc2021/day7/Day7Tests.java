@@ -5,16 +5,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class Day7Tests {
 
-    static String INPUT = "";
+    static String INPUT = "16,1,2,0,4,2,7,1,2,14";
 
     @Test
     @DisplayName("day 7 part 1 example")
-    @Disabled
     void day7part1() {
-        assertEquals(true, false);
+        var crabs = new Crabs(INPUT);
+        assertEquals(37, crabs.scuttle());
     }
 
     @Test
