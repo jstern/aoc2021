@@ -8,6 +8,6 @@ public final class Day7 implements Solution {
     }
 
     public Object part2(String input) {
-        return "";
+        return new Crabs(input).crabwalk();
     }
 }

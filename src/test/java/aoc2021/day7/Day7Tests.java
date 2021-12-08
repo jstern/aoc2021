@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class Day7Tests {
 
@@ -20,9 +19,9 @@ public class Day7Tests {
 
     @Test
     @DisplayName("day 7 part 2 example")
-    @Disabled
     void day7part2() {
-        assertEquals(true, false);
+        var crabs = new Crabs(INPUT);
+        assertEquals(168, crabs.crabwalk());
     }
 
 }
