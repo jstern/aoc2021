@@ -8,20 +8,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day10Tests {
 
-    static String INPUT = "";
+    static String INPUT = """
+            [({(<(())[]>[[{[]{<()<>>
+            [(()[<>])]({[<{<<[]>>(
+            {([(<{}[<>[]}>{[]{[(<()>
+            (((({<>}<{<{<>}{[]{[]{}
+            [[<[([]))<([[{}[[()]]]
+            [{[{({}]{}}([{[{{{}}([]
+            {<[[]]>}<{[{[{[]{()[[[]
+            [<(<(<(<{}))><([]([]()
+            <{([([[(<>()){}]>(<<{{
+            <{([{{}}[<[[[<>{}]]]>[]]
+            """;
 
     @Test
     @DisplayName("day 10 part 1 example")
-    @Disabled
     void day10part1() {
-        assertEquals(true, false);
+        assertEquals(26397, NavigationSubsystem.errorScore(INPUT));
     }
 
     @Test
     @DisplayName("day 10 part 2 example")
-    @Disabled
     void day10part2() {
-        assertEquals(true, false);
+        assertEquals(288957, NavigationSubsystem.completionScore(INPUT));
     }
 
 }
