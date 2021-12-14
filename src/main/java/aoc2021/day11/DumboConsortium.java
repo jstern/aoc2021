@@ -35,12 +35,19 @@ public class DumboConsortium {
         return flashes;
     }
 
-    public void run(int steps) {
-        show();
+    public int run(int steps) {
+        int flashCountBefore = 0;
+        //show();
         for (int i = 0; i < steps; i++) {
             step();
-            show();
+            if (flashCount() - flashCountBefore == 100) {
+                show();
+                return i + 1;
+            }
+            flashCountBefore = flashCount();
+            //show();
         }
+        return -1;
     }
 
     public void step() {

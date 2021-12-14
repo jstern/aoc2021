@@ -30,9 +30,9 @@ public class Day11Tests {
 
     @Test
     @DisplayName("day 11 part 2 example")
-    @Disabled
     void day11part2() {
-        assertEquals(true, false);
+        var dc = new DumboConsortium(INPUT);
+        assertEquals(195, dc.run(200));
     }
 
 }

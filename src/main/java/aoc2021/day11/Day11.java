@@ -7,11 +7,10 @@ public final class Day11 implements Solution {
         var consortium = new DumboConsortium(input);
         consortium.run(100);
         return consortium.flashCount();
-
-        // 2010 = too high
     }
 
     public Object part2(String input) {
-        return "";
+        var consortium = new DumboConsortium(input);
+        return consortium.run(Integer.MAX_VALUE);
     }
 }
