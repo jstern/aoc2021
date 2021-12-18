@@ -41,7 +41,7 @@ public class NavigationSubsystem {
             var open = stack.peek();
             if (closing) {
                 if   (!OPENERS.get(c).equals(open)) return new ParseResult(c, null);
-                else                              stack.pop();
+                else                                stack.pop();
             } else {
                 stack.push(c);
             }

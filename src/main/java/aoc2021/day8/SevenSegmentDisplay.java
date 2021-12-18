@@ -63,13 +63,13 @@ public class SevenSegmentDisplay {
             // pass 2: use those to find the others
             unknowns.stream().forEach(s -> {
                 if (s.length() == 5) {
-                    if      (diff(charset(s), charset(signals.get(1))).size() == 3) remember(3, s);
-                    else if (diff(charset(s), charset(signals.get(4))).size() == 3) remember(2, s);
+                    if      (Sets.diff(charset(s), charset(signals.get(1))).size() == 3) remember(3, s);
+                    else if (Sets.diff(charset(s), charset(signals.get(4))).size() == 3) remember(2, s);
                     else                                                            remember(5, s);
                 }
                 if (s.length() == 6) {
-                    if      (diff(charset(s), charset(signals.get(7))).size() == 4) remember(6, s);
-                    else if (diff(charset(s), charset(signals.get(4))).size() == 3) remember(0, s);
+                    if      (Sets.diff(charset(s), charset(signals.get(7))).size() == 4) remember(6, s);
+                    else if (Sets.diff(charset(s), charset(signals.get(4))).size() == 3) remember(0, s);
                     else                                                            remember(9, s);
 
                 }
@@ -115,18 +115,4 @@ public class SevenSegmentDisplay {
         return s.chars().mapToObj(i -> (char)i).collect(Collectors.toSet());
     }
 
-    static Set<Character> diff(Set<Character> a, Set<Character> b) {
-        return a.stream().filter(v -> !b.contains(v)).collect(Collectors.toSet());
-    }
-
-    static Set<Character> union(Set<Character> a, Set<Character> b) {
-        var result = new HashSet<Character>();
-        result.addAll(a);
-        result.addAll(b);
-        return result;
-    }
-
-    static Set<Character> intersection(Set<Character> a, Set<Character> b) {
-        return a.stream().filter(v -> b.contains(v)).collect(Collectors.toSet());
-    }
 }

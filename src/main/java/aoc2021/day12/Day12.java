@@ -4,10 +4,10 @@ import aoc2021.Solution;
 
 public final class Day12 implements Solution {
     public Object part1(String input) {
-        return "";
+        return new CaveMap(input).explore().size();
     }
 
     public Object part2(String input) {
-        return "";
+        return new CaveMap(input, true).explore().size();
     }
 }
