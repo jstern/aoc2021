@@ -4,10 +4,11 @@ import aoc2021.Solution;
 
 public final class Day13 implements Solution {
     public Object part1(String input) {
-        return "";
+        return new MapOfSomeTransparentPaper(input).countAfter(1);
     }
 
     public Object part2(String input) {
+        new MapOfSomeTransparentPaper(input).show();
         return "";
     }
 }
