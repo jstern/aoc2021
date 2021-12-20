@@ -8,13 +8,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day14Tests {
 
-    static String INPUT = "";
+    static String INPUT = """
+            NNCB
+                        
+            CH -> B
+            HH -> N
+            CB -> H
+            NH -> C
+            HB -> C
+            HC -> B
+            HN -> C
+            NN -> C
+            BH -> H
+            NC -> B
+            NB -> B
+            BN -> B
+            BB -> N
+            BC -> B
+            CC -> N
+            CN -> C""";
 
     @Test
     @DisplayName("day 14 part 1 example")
-    @Disabled
-    void day14part1() {
-        assertEquals(true, false);
+    void day14part1() throws Exception {
+        var sim = new PolymerSimulation(INPUT);
+        var stats = sim.run(10);
+        System.out.println(stats);
+        assertEquals("H", stats.leastCommon());
+        assertEquals(161, stats.leastCount());
+        assertEquals("B", stats.mostCommon());
+        assertEquals(1749, stats.mostCount());
     }
 
     @Test
