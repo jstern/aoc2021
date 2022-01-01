@@ -102,27 +102,32 @@ public class RiskMap {
 
     // from https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     public int leastRisk(boolean show) {
-        // TODO: will I end up needing/wanting a priority queue here instead?
-        var unprocessed = new HashSet<>(graph.keySet());
-        var dist = new HashMap<Point2D,Integer>();
-        var prev = new HashMap<Point2D,Point2D>();
+        var dist = new HashMap<Point2D,Integer>();  // "distances" from start
+        dist.put(start, 0);
+        var prev = new HashMap<Point2D,Point2D>();  // parents
+        var next = new PriorityQueue<PointPlusDist>(Comparator.comparingInt(PointPlusDist::dist));
+        next.add(new PointPlusDist(start, 0));
 
         for (var point : graph.keySet()) {
-            dist.put(point, Integer.MAX_VALUE);
-            prev.put(point, null);
+            if (!point.equals(start)) {
+                dist.put(point, Integer.MAX_VALUE);
+                prev.put(point, null);
+            }
         }
-        dist.put(start, 0);
 
-        while (!unprocessed.isEmpty()) {
-            var u = unprocessed.stream().min(Comparator.comparingInt(dist::get)).get();
-            unprocessed.remove(u);
+        while (!next.isEmpty()) {
+            var u = next.poll();
 
-            // FIXME: risk values/neighbors are in graph already, don't need to call neighbors and look at risks
-            for (var n : neighbors(u)) {
-                var cost = dist.get(u) + risks.get(n);
+            // don't process points where we already have a different (shorter) distance
+            if (!dist.get(u.point()).equals(u.dist())) continue;
+
+            // FIXME?: risk values/neighbors are in graph already, don't need to call neighbors and look at risks
+            for (var n : neighbors(u.point())) {
+                var cost = dist.get(u.point()) + risks.get(n);
                 if (cost < dist.get(n)) {
                     dist.put(n, cost);
-                    prev.put(n, u);
+                    prev.put(n, u.point());
+                    next.add(new PointPlusDist(n, cost));
                 }
             }
         }
@@ -142,6 +147,8 @@ public class RiskMap {
 
         return dist.get(end);
     }
+
+    static record PointPlusDist(Point2D point, Integer dist) {}
 
     private void show(Set<Point2D> path) {
         for (int y = 0; y <= yMax; y++) {
