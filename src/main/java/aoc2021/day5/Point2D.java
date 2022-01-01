@@ -1,9 +1,5 @@
 package aoc2021.day5;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 public record Point2D(int x, int y) {
     public static Point2D of(String desc) {
         var parts = desc.split(",");
@@ -12,5 +8,9 @@ public record Point2D(int x, int y) {
 
     public Point2D next(int dx, int dy) {
         return new Point2D(x() + dx, y + dy);
+    }
+
+    public String toString() {
+        return "(%d,%d)".formatted(x, y);
     }
 }
