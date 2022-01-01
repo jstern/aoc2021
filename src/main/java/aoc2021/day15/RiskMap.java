@@ -1,10 +1,12 @@
 package aoc2021.day15;
 
+import aoc2021.Util;
 import aoc2021.day5.Point2D;
 
 import java.util.*;
 
 public class RiskMap {
+    private static final List<Integer> VALS = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
     private final Map<Point2D,Map<Point2D,Integer>> graph = new HashMap<>();
     private final Map<Point2D,Integer> risks = new HashMap<>();
     private final Point2D start = new Point2D(0, 0);
@@ -17,7 +19,8 @@ public class RiskMap {
     }
 
     public RiskMap(String input, int N) {
-        // write down the risk for each point and figure out size of grid (or first grid tile)
+        // write down the risk for each point in the base tile
+        var baseRisks = new HashMap<Point2D,Integer>();
         var ctx = new Object() {
             int xMax;
             int y = 0;
@@ -25,22 +28,58 @@ public class RiskMap {
         input.lines().forEach(s -> {
             for (int i = 0; i < s.length(); i++) {
                 ctx.xMax = i;
-                risks.put(new Point2D(i, ctx.y), Integer.parseInt(s.substring(i, i + 1), 10));
+                baseRisks.put(new Point2D(i, ctx.y), Integer.parseInt(s.substring(i, i + 1), 10));
             }
             ctx.y++;
         });
 
-        xMax = ctx.xMax;
-        yMax = ctx.y - 1;
+        // Remember the maxima of the base tile
+        var xs = ctx.xMax;
+        var ys = ctx.y - 1;
+        //System.out.printf("base maxes: %d,%d%n", xs, ys);
+
+        // Calculate the overall maxima based on number of tile
+        xMax = ((ctx.xMax + 1) * N) - 1;
+        yMax = (ctx.y * N) - 1;          // ctx.y is already 1 larger than maxY for 1 tile
         end = new Point2D(xMax, yMax);
+
+        // Now create any additional tiles in the grid based on the root tile, and build the full risks map
+        for (int dy = 0; dy < N; dy++) {
+            for (int dx = 0; dx < N; dx++) {
+                //System.out.printf("\nBuilding tile %d,%d%n", dx, dy);
+                for (var basePoint : baseRisks.entrySet()) {
+                    addPoint(basePoint.getKey(), basePoint.getValue(), dx, dy, xs, ys);
+                }
+            }
+        }
 
         // then build the graph
         for (var p : risks.keySet()) {
-            var adj = graph.computeIfAbsent(p, k -> new HashMap<Point2D,Integer>());
+            var adj = graph.computeIfAbsent(p, k -> new HashMap<>());
             for (var n : neighbors(p)) {
                 adj.put(n, risks.get(n));
             }
         }
+        // show full grid with base tile highlighted:
+        // show(baseRisks.keySet());
+    }
+
+    /**
+     * Calculate coordinates and associated risk of a point based on
+     * which tile the original point is repeated in.
+     *
+     * @param bp base Point2D
+     * @param br risk value of bp
+     * @param dx number of tiles to the right of the base tile
+     * @param dy number of tiles down from the base tile
+     * @param xs max x value in base tile
+     * @param ys max y value in base tile
+     */
+    private void addPoint(Point2D bp, Integer br, int dx, int dy, int xs, int ys) {
+        var r = Util.wrappedGet(VALS, br + dx + dy - 1);  // hey look I used some day 0 code :)
+        var p = new Point2D(bp.x() + (dx * (xs + 1)), bp.y() + (dy * (ys + 1)));
+        //System.out.println(bp + ": " + br + " -> " + p + ": " + r);
+        risks.put(p, r);
     }
 
     private List<Point2D> neighbors(Point2D current) {
@@ -63,7 +102,8 @@ public class RiskMap {
 
     // from https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     public int leastRisk(boolean show) {
-        var unprocessed = new HashSet<Point2D>(graph.keySet());
+        // TODO: will I end up needing/wanting a priority queue here instead?
+        var unprocessed = new HashSet<>(graph.keySet());
         var dist = new HashMap<Point2D,Integer>();
         var prev = new HashMap<Point2D,Point2D>();
 
@@ -107,10 +147,12 @@ public class RiskMap {
         for (int y = 0; y <= yMax; y++) {
             for (int x = 0; x <= xMax; x++) {
                 var p = new Point2D(x, y);
+                var r = risks.get(p);
+                if (r == null) r = 0;
                 if (path.contains(p)) {
-                    System.out.print("\u001B[33m" + risks.get(p) + "\u001B[0m");
+                    System.out.print("\u001B[33m" + r + "\u001B[0m");
                 } else {
-                    System.out.print(risks.get(p));
+                    System.out.print(r);
                 }
             }
             System.out.print("\n");

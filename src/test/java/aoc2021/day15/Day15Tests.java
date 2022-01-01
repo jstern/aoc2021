@@ -43,26 +43,15 @@ public class Day15Tests {
     }
 
     @Test
-    @DisplayName("shorter examples part 2")
-    @Disabled
+    @DisplayName("shorter part 2 examples")
     void shorter2() {
-        String input = "12";
-        var m = new RiskMap(input, 2);
-        m.leastRisk();
-        assertEquals(2, m.leastRisk());
-
-        input = "12\n13";
-        m = new RiskMap(input, 2);
-        m.leastRisk();
-        assertEquals(4, m.leastRisk());
+        var m = new RiskMap("12\n13", 2);
     }
 
     @Test
     @DisplayName("day 15 part 2 example")
-    @Disabled
     void day15part2() {
         var m = new RiskMap(INPUT, 5);
         assertEquals(315, m.leastRisk());
     }
-
 }
