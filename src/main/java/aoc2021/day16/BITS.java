@@ -2,14 +2,16 @@ package aoc2021.day16;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
+import java.util.function.Function;
 
 public class BITS {
 
     interface Packet {
         long version();
         long sumVersions();
-        boolean isLiteral();
+        long value();
     }
 
     public static final record Literal(long version, long value) implements Packet {
@@ -17,28 +19,38 @@ public class BITS {
         public long sumVersions() {
             return version();
         }
-        @Override
-        public boolean isLiteral() { return true; }
 
         public String toString() {
             return "%d:%d".formatted(version, value);
         }
     }
 
-    public static final record Operator(long version, List<Packet> subpackets, long count, long end) implements Packet {
+    public static final record Operator(long version, long type, List<Packet> subpackets, long count, long end) implements Packet {
         @Override
         public long sumVersions() {
             return version() + subpackets().stream().map(Packet::sumVersions).mapToLong(Long::longValue).sum();
         }
-        @Override
-        public boolean isLiteral() { return false; }
 
         public String toString() {
             return "%d:%d:%d:%s".formatted(version, count, end, subpackets);
         }
+
         public boolean done(int position) {
             if (count() != 0 && subpackets.size() >= count()) return true;
             return end() != 0 && position >= end();
+        }
+
+        public long value() {
+            return switch((int) type) {
+                case 0 -> subpackets.stream().mapToLong(Packet::value).sum();
+                case 1 -> subpackets.stream().mapToLong(Packet::value).reduce(1, (x, y) -> x * y);
+                case 2 -> subpackets.stream().mapToLong(Packet::value).min().getAsLong();
+                case 3 -> subpackets.stream().mapToLong(Packet::value).max().getAsLong();
+                case 5 -> subpackets.get(0).value() > subpackets.get(1).value() ? 1 : 0;
+                case 6 -> subpackets.get(0).value() < subpackets.get(1).value() ? 1 : 0;
+                case 7 -> subpackets.get(0).value() == subpackets.get(1).value() ? 1 : 0;
+                default -> throw new IllegalStateException("Bad operator type " + type);
+            };
         }
     }
 
@@ -104,7 +116,7 @@ public class BITS {
                 if (typeId == 4) {
                     result = readLiteral(version);
                 } else {
-                    result = readOperator(version);
+                    result = readOperator(version, typeId);
                 }
             } else {
                 System.out.println("Do we ever get this exception?");
@@ -126,7 +138,7 @@ public class BITS {
             return new Literal(version, readInt(repr.toString(), 0, repr.length()));
         }
 
-        private Operator readOperator(long version) {
+        private Operator readOperator(long version, long type) {
             var lengthTypeId = data.charAt(position);
             position++;
 
@@ -134,11 +146,11 @@ public class BITS {
             if (lengthTypeId == '0') {
                 var length = readInt(data, position, position + 15);
                 position += 15;
-                operator = new Operator(version, new ArrayList<>(), 0, position + length);
+                operator = new Operator(version, type, new ArrayList<>(), 0, position + length);
             } else if (lengthTypeId == '1') {
                 var count = readInt(data, position, position + 11);
                 position += 11;
-                operator = new Operator(version, new ArrayList<>(), count, 0);
+                operator = new Operator(version, type, new ArrayList<>(), count, 0);
             } else {
                 throw new RuntimeException("Invalid lengthTypeId " + lengthTypeId);
             }

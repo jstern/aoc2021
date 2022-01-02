@@ -8,6 +8,6 @@ public final class Day16 implements Solution {
     }
 
     public Object part2(String input) {
-        return "";
+        return BITS.readerFromHex(input.strip()).read().value();
     }
 }
