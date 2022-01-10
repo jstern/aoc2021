@@ -7,14 +7,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HeightMap {
-    private List<List<Integer>> heights = new ArrayList<>();
-    private int xMax;
-    private int yMax;
+    private final List<List<Integer>> heights = new ArrayList<>();
+    private final int xMax;
+    private final int yMax;
 
     public HeightMap(String input) {
-        input.lines().forEach(ln -> {
-            heights.add(ln.chars().mapToObj(v -> v - 48).collect(Collectors.toList()));
-        });
+        input.lines().forEach(ln -> heights.add(ln.chars().mapToObj(v -> v - 48).collect(Collectors.toList())));
         xMax = heights.get(0).size();
         yMax = heights.size();
     }
@@ -42,7 +40,7 @@ public class HeightMap {
             for (int x = 0; x < xMax; x++) {
                 Integer v = heights.get(y).get(x);
                 List<Point> adj = adjacent(x, y);
-                if (adj.stream().filter(a -> a.v > v).collect(Collectors.toList()).size() == adj.size()) result.add(new Point(y, x, v));
+                if (adj.stream().filter(a -> a.v > v).toList().size() == adj.size()) result.add(new Point(y, x, v));
             }
         }
         return result;
@@ -53,15 +51,14 @@ public class HeightMap {
     }
 
     public Set<Point> basin(Point low) {
-        var result = new HashSet<Point>();
-        var adj = adjacent(low.x(), low.y()).stream().filter(p -> p.v() < 9).collect(Collectors.toList());
-        result.addAll(adj); // we know these are all > low
+        var adj = adjacent(low.x(), low.y()).stream().filter(p -> p.v() < 9).toList();
+        var result = new HashSet<>(adj); // we know these are all > low
         adj.forEach(point -> extendBasin(result, point));
         return result;
     }
 
     private void extendBasin(Set<Point> basin, Point p) {
-        var adj = adjacent(p).stream().filter(p2 -> p2.v < 9).collect(Collectors.toList());
+        var adj = adjacent(p).stream().filter(p2 -> p2.v < 9).toList();
         for (Point a: adj) {
             if (basin.add(a)) extendBasin(basin, a);
         }

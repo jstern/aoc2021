@@ -18,7 +18,7 @@ public class LanternfishPopulation {
         for (int i = 0; i < days; i++) {
             simulateOne();
         }
-        show();
+        //show();
     }
 
     public void simulateOne() {

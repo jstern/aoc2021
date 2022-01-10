@@ -23,13 +23,8 @@ public class SevenSegmentDisplay {
     // 6 -> [0, 6, 9] etc
     static final Map<Integer, List<Integer>> DIGITS_BY_COUNT = new HashMap<>();
 
-    static final Map<Integer,String> STRINGS = DIGITS.entrySet().stream().collect(
-            Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)
-    );
     static {
-        COUNTS.entrySet().stream().forEach(e -> {
-            DIGITS_BY_COUNT.computeIfAbsent(e.getValue(), k -> new ArrayList<>()).add(e.getKey());
-        });
+        COUNTS.forEach((key, value) -> DIGITS_BY_COUNT.computeIfAbsent(value, k -> new ArrayList<>()).add(key));
     }
 
     static Optional<Integer> getSingleDigit(String val) {
@@ -41,36 +36,36 @@ public class SevenSegmentDisplay {
     }
 
     public static class SevenSegmentIO {
-        private Map<String,Integer> digits = new HashMap<>();
-        private Map<Integer,String> signals = new HashMap<>();
-        private String[] outputs;
+        private final Map<String,Integer> digits = new HashMap<>();
+        private final Map<Integer,String> signals = new HashMap<>();
+        private final String[] outputs;
 
         public SevenSegmentIO(String[] inputs, String[] outputs) {
             this.outputs = outputs;
 
-            Set<String> unknowns = new HashSet<String>();
+            Set<String> unknowns = new HashSet<>();
             unknowns.addAll(Arrays.stream(inputs).map(s -> sorted(s)).toList());
             unknowns.addAll(Arrays.stream(outputs).map(s -> sorted(s)).toList());
 
             // pass 1: find the ones we're sure of
-            unknowns.stream().forEach(s -> {
+            unknowns.forEach(s -> {
                 var matches = DIGITS_BY_COUNT.get(s.length());
                 if (matches.size() == 1) remember(matches.get(0), s);
             });
             //System.out.println("First pass " + digits);
-            unknowns.remove(signals.values());
+            unknowns.removeAll(signals.values());
 
             // pass 2: use those to find the others
-            unknowns.stream().forEach(s -> {
+            unknowns.forEach(s -> {
                 if (s.length() == 5) {
                     if      (Sets.diff(charset(s), charset(signals.get(1))).size() == 3) remember(3, s);
                     else if (Sets.diff(charset(s), charset(signals.get(4))).size() == 3) remember(2, s);
-                    else                                                            remember(5, s);
+                    else                                                                 remember(5, s);
                 }
                 if (s.length() == 6) {
                     if      (Sets.diff(charset(s), charset(signals.get(7))).size() == 4) remember(6, s);
                     else if (Sets.diff(charset(s), charset(signals.get(4))).size() == 3) remember(0, s);
-                    else                                                            remember(9, s);
+                    else                                                                 remember(9, s);
 
                 }
             });

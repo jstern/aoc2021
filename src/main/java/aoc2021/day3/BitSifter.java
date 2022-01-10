@@ -5,7 +5,6 @@ package aoc2021.day3;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BitSifter {
@@ -13,7 +12,7 @@ public class BitSifter {
     private int[] set = null;
     private char[] common = null; // probably don't need both of these
     private char[] uncommon = null;
-    private Set<String> vals = new HashSet<>();
+    private final Set<String> vals = new HashSet<>();
     public int gamma;
     public int epsilon;
 
@@ -67,7 +66,7 @@ public class BitSifter {
         }
 
         var check = wantCommon ? common : uncommon;
-        List<String> sifted = vals.stream().filter(v -> check[pos] == v.charAt(pos)).collect(Collectors.toList());
+        List<String> sifted = vals.stream().filter(v -> check[pos] == v.charAt(pos)).toList();
 
         if (sifted.size() == 1) {
             return Integer.parseInt(String.valueOf(sifted.get(0)), 2);

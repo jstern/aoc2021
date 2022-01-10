@@ -14,8 +14,8 @@ public interface Solution {
 
         // Record starting time and memory
         long start = System.currentTimeMillis();
-        long freeInitial = bytesToMB(Runtime.getRuntime().freeMemory());
-        long totalInitial = bytesToMB(Runtime.getRuntime().totalMemory());
+        //long freeInitial = bytesToMB(Runtime.getRuntime().freeMemory());
+        //long totalInitial = bytesToMB(Runtime.getRuntime().totalMemory());
 
         // Find and run the solution
         // Using reflection because I'm too lazy to do it with annotations, DI, etc
@@ -24,15 +24,14 @@ public interface Solution {
 
         // Record
         long elapsed = System.currentTimeMillis() - start;
-        long freeFinal = bytesToMB(Runtime.getRuntime().freeMemory());
-        long totalFinal = bytesToMB(Runtime.getRuntime().totalMemory());
+        //long freeFinal = bytesToMB(Runtime.getRuntime().freeMemory());
+        //long totalFinal = bytesToMB(Runtime.getRuntime().totalMemory());
 
 
-        System.out.printf("Completed in %d ms%n", elapsed);
-        System.out.printf("Initial memory: %dMB total, %dMB free%n", totalInitial, freeInitial);
-        System.out.printf("Final memory: %dMB total, %dMB free%n", totalFinal, freeFinal);
+        System.out.printf("Result in %d ms:%n", elapsed);
+        //System.out.printf("Initial memory: %dMB total, %dMB free%n", totalInitial, freeInitial);
+        //System.out.printf("Final memory: %dMB total, %dMB free%n", totalFinal, freeFinal);
 
-        System.out.println("Result:");
         System.out.println(result);
     }
 

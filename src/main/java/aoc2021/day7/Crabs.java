@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Crabs {
-    private class CrabCastException extends IllegalArgumentException {
+    private static class CrabCastException extends IllegalArgumentException {
         public CrabCastException(String msg) { super(msg); }
     }
 
@@ -22,7 +22,7 @@ public class Crabs {
                         .sorted()
                         .collect(Collectors.toList());
         crabStats = assortedCrabs.stream().mapToInt(i -> i).summaryStatistics();
-        System.out.println(crabStats);
+        //System.out.println(crabStats);
     }
 
     public int scuttle() {

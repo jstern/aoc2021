@@ -2,9 +2,7 @@ package aoc2021.day16;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
-import java.util.function.Function;
 
 public class BITS {
 
@@ -14,7 +12,7 @@ public class BITS {
         long value();
     }
 
-    public static final record Literal(long version, long value) implements Packet {
+    public record Literal(long version, long value) implements Packet {
         @Override
         public long sumVersions() {
             return version();
@@ -25,7 +23,7 @@ public class BITS {
         }
     }
 
-    public static final record Operator(long version, long type, List<Packet> subpackets, long count, long end) implements Packet {
+    public record Operator(long version, long type, List<Packet> subpackets, long count, long end) implements Packet {
         @Override
         public long sumVersions() {
             return version() + subpackets().stream().map(Packet::sumVersions).mapToLong(Long::longValue).sum();

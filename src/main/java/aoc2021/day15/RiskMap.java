@@ -105,7 +105,7 @@ public class RiskMap {
         var dist = new HashMap<Point2D,Integer>();  // "distances" from start
         dist.put(start, 0);
         var prev = new HashMap<Point2D,Point2D>();  // parents
-        var next = new PriorityQueue<PointPlusDist>(Comparator.comparingInt(PointPlusDist::dist));
+        var next = new PriorityQueue<>(Comparator.comparingInt(PointPlusDist::dist));
         next.add(new PointPlusDist(start, 0));
 
         for (var point : graph.keySet()) {
@@ -148,7 +148,7 @@ public class RiskMap {
         return dist.get(end);
     }
 
-    static record PointPlusDist(Point2D point, Integer dist) {}
+    record PointPlusDist(Point2D point, Integer dist) {}
 
     private void show(Set<Point2D> path) {
         for (int y = 0; y <= yMax; y++) {

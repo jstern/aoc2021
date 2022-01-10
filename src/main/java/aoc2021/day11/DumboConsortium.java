@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class DumboConsortium {
-    private int[][] octopuses = new int[10][10];
+    private final int[][] octopuses = new int[10][10];
     private int flashes = 0;
 
     public DumboConsortium(String input) {
@@ -41,7 +41,7 @@ public class DumboConsortium {
         for (int i = 0; i < steps; i++) {
             step();
             if (flashCount() - flashCountBefore == 100) {
-                show();
+                //show();
                 return i + 1;
             }
             flashCountBefore = flashCount();
@@ -51,7 +51,7 @@ public class DumboConsortium {
     }
 
     public void step() {
-        Set<Spot> flashed = new HashSet<Spot>();
+        Set<Spot> flashed = new HashSet<>();
         Set<Spot> ready = charge();
         while(ready.size() > 0) {
             ready = propagate(ready, flashed);
@@ -94,7 +94,7 @@ public class DumboConsortium {
     }
 
     private void discharge(Set<Spot> flashed) {
-        flashed.stream().forEach(s -> octopuses[s.row][s.col] = 0);
+        flashed.forEach(s -> octopuses[s.row][s.col] = 0);
     }
 
     record Spot(int row, int col) {

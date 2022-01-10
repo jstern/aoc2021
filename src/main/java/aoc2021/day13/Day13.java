@@ -8,7 +8,6 @@ public final class Day13 implements Solution {
     }
 
     public Object part2(String input) {
-        new MapOfSomeTransparentPaper(input).show();
-        return "";
+        return new MapOfSomeTransparentPaper(input).show();
     }
 }

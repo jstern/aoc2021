@@ -50,7 +50,7 @@ public class BingoSession {
         Set<Integer> boardsInPlay = IntStream.rangeClosed(0, boardNum).boxed().collect(Collectors.toSet());
 
         for (Integer number : numbers) {
-            System.out.println("The next number is... " + number);
+            //System.out.println("The next number is... " + number);
             var matchingBoards = boardsWithNumber.get(number);
             for (var b : matchingBoards) {
                 if (!boardsInPlay.contains(b)) continue;
@@ -58,16 +58,16 @@ public class BingoSession {
                     boards.get(b).play(number);
                 } catch(Bingo bingo) {
                     if (strategy == Strategy.WIN) {
-                        System.out.println("BINGO!!!! Board " + b);
-                        System.out.println(boards.get(b));
+                        //System.out.println("BINGO!!!! Board " + b);
+                        //System.out.println(boards.get(b));
                         return boards.get(b).score(number);
                     } else {
                         if (boardsInPlay.size() == 1) {
-                            System.out.println("YES!!! SQUID GAME !!! Board " + b);
-                            System.out.println(boards.get(b));
+                            //System.out.println("YES!!! SQUID GAME !!! Board " + b);
+                            //System.out.println(boards.get(b));
                             return boards.get(b).score(number);
                         }
-                        System.out.println("Shhh... let's pretend board %d didn't bingo".formatted(b));
+                        //System.out.println("Shhh... let's pretend board %d didn't bingo".formatted(b));
                         boardsInPlay.remove(b);
                     }
                 }

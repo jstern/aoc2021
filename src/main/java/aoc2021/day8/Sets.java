@@ -17,6 +17,6 @@ public class Sets {
     }
 
     public static <T> Set<T> intersection(Set<T> a, Set<T> b) {
-        return a.stream().filter(v -> b.contains(v)).collect(Collectors.toSet());
+        return a.stream().filter(b::contains).collect(Collectors.toSet());
     }
 }

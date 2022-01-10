@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class ProbeLauncher {
     static final int TRIALS = 200;
 
-    public static record Target(int xMin, int xMax, int yMin, int yMax) {
+    public record Target(int xMin, int xMax, int yMin, int yMax) {
         public static Target describedBy(String input) {
             Pattern p = Pattern.compile("^target area: x=([^.]+)\\.\\.([^,]+), y=([^.]+)\\.\\.(.*)$");
             Matcher m = p.matcher(input.strip());
@@ -35,11 +35,11 @@ public class ProbeLauncher {
         }
     }
 
-    public static record MemoKey(int vInitial, int time) {}
+    public record MemoKey(int vInitial, int time) {}
 
-    public static record State(int position, int velocity) {}
+    public record State(int position, int velocity) {}
 
-    public static record Result(boolean hit, List<Point2D> path) {
+    public record Result(boolean hit, List<Point2D> path) {
         public int yMax() {
             return path.stream().mapToInt(Point2D::y).max().getAsInt();
         }

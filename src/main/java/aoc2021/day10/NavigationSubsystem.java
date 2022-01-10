@@ -18,7 +18,7 @@ public class NavigationSubsystem {
     );
 
     public static int errorScore(String input) {
-        return input.lines().map(NavigationSubsystem::parse).map(ParseResult::errorScore).reduce(0, (a, b) -> a + b);
+        return input.lines().map(NavigationSubsystem::parse).map(ParseResult::errorScore).reduce(0, Integer::sum);
     }
 
     public static long completionScore(String input) {
@@ -28,7 +28,7 @@ public class NavigationSubsystem {
                 .map(ParseResult::completionScore)
                 .filter(r -> r > 0)
                 .sorted()
-                .collect(Collectors.toList());
+                .toList();
         return results.get(results.size() / 2);
 
         // 567895273 too low
@@ -49,7 +49,7 @@ public class NavigationSubsystem {
         return new ParseResult(null, stack);
     }
 
-    public static record ParseResult(Character errorChar, Deque<Character> incomplete) {
+    public record ParseResult(Character errorChar, Deque<Character> incomplete) {
         public boolean isComplete() {
             return incomplete.size() == 0;
         }

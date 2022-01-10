@@ -54,15 +54,17 @@ public class MapOfSomeTransparentPaper {
         return f - (p - f);
     }
 
-    public void show() {
+    public String show() {
+        var result = new StringBuilder();
         var yMax = visible.stream().mapToInt(Point2D::y).max().getAsInt();
         var xMax = visible.stream().mapToInt(Point2D::x).max().getAsInt();
         for (int y = 0; y <= yMax; y++) {
             for (int x = 0; x <= xMax; x++) {
-                if (visible.contains(new Point2D(x, y))) System.out.print("*");
-                else System.out.print(" ");
+                if (visible.contains(new Point2D(x, y))) result.append("*");
+                else result.append(" ");
             }
-            System.out.print("\n");
+            result.append("\n");
         }
+        return result.toString();
     }
 }

@@ -4,6 +4,9 @@ JAR := $(CURDIR)/build/libs/aoc2021-1.0.jar
 run: $(JAR)
 	java --enable-preview -cp $(JAR) aoc2021.Main $(day) $(part)
 
+run-all: $(JAR)
+	java --enable-preview -cp $(JAR) aoc2021.Main
+
 input: $(JAR)
 	mkdir -p $(CURDIR)/input/$(year)
 	java --enable-preview -cp $(JAR) aoc2021.PuzzleInput $(year) $(day)

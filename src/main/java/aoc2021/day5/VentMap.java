@@ -3,9 +3,10 @@ package aoc2021.day5;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class VentMap {
-    private int[][] grid;
+    private final int[][] grid;
 
     public VentMap(String input, int max) {
         this(input, max, false);
@@ -18,7 +19,7 @@ public class VentMap {
             if (includeDiagonal || line.horizontal() || line.vertical()) addVentLine(line);
         });
 
-        if (System.getenv("DEBUG") == "1") System.out.println(Arrays.toString(grid));
+        if (Objects.equals(System.getenv("DEBUG"), "1")) System.out.println(Arrays.toString(grid));
     }
 
     static VentLine read(String desc) {
@@ -27,20 +28,20 @@ public class VentMap {
     }
 
     private void addVentLine(VentLine line) {
-       line.points().stream().forEach(p -> grid[p.y()][p.x()]++);
+       line.points().forEach(p -> grid[p.y()][p.x()]++);
     }
 
     public int countHazards() {
         int total = 0;
-        for (int y = 0; y < grid.length; y++) {
+        for (int[] ints : grid) {
             for (int x = 0; x < grid.length; x++) {
-                if (grid[y][x] > 1) total++;
+                if (ints[x] > 1) total++;
             }
         }
         return total;
     }
 
-    public static record VentLine(Point2D start, Point2D end) {
+    public record VentLine(Point2D start, Point2D end) {
         int length() {
             if (horizontal()) return Math.abs(end.x() - start.x()) + 1;
             return Math.abs(end.y() - start.y()) + 1;
