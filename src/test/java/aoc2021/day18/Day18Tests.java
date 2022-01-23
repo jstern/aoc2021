@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class Day18Tests {
 
@@ -21,23 +20,6 @@ public class Day18Tests {
             [[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
             [[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]""";
 
-    @Test
-    @DisplayName("basic addition")
-    void addition1() {
-        var a = SnailfishNumber.parse("[1,2]");
-        var b = SnailfishNumber.parse("[3,4]");
-        assertEquals(SnailfishNumber.parse("[[1,2],[3,4]]"), a.add(b));
-    }
-
-    @Test
-    @DisplayName("addition with reduction")
-    @Disabled
-    void addition2() {
-        var a = SnailfishNumber.parse("[[[[4,3],4],4],[7,[[8,4],9]]]");
-        var b = SnailfishNumber.parse("[1,1]");
-        var e = SnailfishNumber.parse("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]");
-        assertEquals(e, a.add(b));
-    }
 
     @Test
     @DisplayName("day 18 part 1 example")
