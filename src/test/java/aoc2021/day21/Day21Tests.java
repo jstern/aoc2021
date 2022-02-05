@@ -27,8 +27,8 @@ public class Day21Tests {
     @Test
     @DisplayName("day 21 part 1 example")
     void day21part1() {
-        var game = new DiracDiceGame(new DeterministicDie(), 4, 8);
-        game.play();
+        var game = new DiracDiceGame(4, 8, 1000);
+        game.play(new DeterministicDie());
         assertEquals(739785, game.getLoser().score() * game.getRolls());
     }
 
@@ -38,5 +38,4 @@ public class Day21Tests {
     void day21part2() {
         assertEquals(true, false);
     }
-
 }

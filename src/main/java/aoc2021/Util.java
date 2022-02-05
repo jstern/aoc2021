@@ -3,14 +3,13 @@ package aoc2021;
 import java.util.List;
 
 public class Util {
-    static int wrappedIndex(int size, int idx) {
+    public static int wrappedIndex(int size, int idx) {
         var i = idx % size;
         if (i < 0) {
             return size + i;
         }
         return i;
     }
-
 
     /**
      * Get the element at idx mod the size of the array.
