@@ -2,6 +2,9 @@ package aoc2021.day21;
 
 import aoc2021.Solution;
 
+import java.util.Comparator;
+import java.util.Map;
+
 public final class Day21 implements Solution {
     public Object part1(String input) {
         var game = new DiracDiceGame(9, 10, 1000);
@@ -27,24 +30,13 @@ public final class Day21 implements Solution {
          * x x x x x x x
          * 3 4 5 6 7 8 9
          *
-         * Each turn can have 1 of 10 point outcomes (7 different ways each)
-         *
-         * for example
-         *
-         * 9 -> 2 (3)
-         * 9 -> 3 (4)
-         * 9 -> 4 (5)
-         * 9 -> 5 (6)
-         * 9 -> 6 (7)
-         * 9 -> 7 (8)
-         * 9 -> 8 (9)
-         *
-         * The next question I think is, what are all the sequences of 3-roll outcomes that get exactly one player to 21?
-         *
-         *
+         * So... finding all the series of 3-rolls that result in a complete game, and
+         * then multiplying each 3-roll by the number of ways it could have happened.
          */
-        DiracDiceGame.allMoves();
-        DiracDiceGame.allOutcomes();
-        return "";
+        Map<Part2Reboot.Winner, Long> totals = Part2Reboot.finalStates(Part2Reboot.START, 21);
+        //System.out.println(totals);
+        return totals.values().stream().max(Comparator.naturalOrder());
+        // 1452372287 too low!
+        // 157595953724471
     }
 }

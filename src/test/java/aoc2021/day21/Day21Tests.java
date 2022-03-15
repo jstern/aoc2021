@@ -34,8 +34,7 @@ public class Day21Tests {
 
     @Test
     @DisplayName("day 21 part 2 example")
-    @Disabled
     void day21part2() {
-        assertEquals(true, false);
+       assertEquals(9, Part2Reboot.countAll("344"));
     }
 }

@@ -86,6 +86,4 @@ public class DiracDiceGame {
     record StartMove(int start, int move) {
         public String toString() { return "%d+%d".formatted(start, move); }
     }
-
-
 }
